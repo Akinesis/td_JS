@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" media="screen" href="todo_list.css" />
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+        function addListElement(){
+            var newLi = document.createElement("li");
+            var newText = document.createTextNode(document.getElementById("todotxt").value);
+            newLi.appendChild(newText);
+
+            var attribut = document.createAttribute("onclick");
+            attribut.value = "confirmDelete(this)"
+
+            newLi.setAttributeNode(attribut);
+
+            document.getElementById("todolist").appendChild(newLi);
+            document.getElementById("todotxt").value = "";
+        }
+
+        function confirmDelete(child){
+            var parent = child.parentNode;
+            if (confirm("Do you whant to delete this task ?")) {
+                parent.removeChild(child);
+            }
+        }
+
+    </script>
+
+    <div class="content">
+        <h1>TODO List</h1>
+        <ul id="todolist">
+        </ul>
+        <input id="todotxt" type="text" />
+        <button id="addtodo" type="button" onclick="addListElement()">Ajouter</button>
+    </div>
+</body>
+
+</html>

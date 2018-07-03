@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        var nameTable = {
+            "anatole": 19,
+            "christophe": 34,
+            "dominique": 55,
+            "frank": 28,
+            "georges": 78
+        }
+
+
+        function findName() {
+            var nameFind = document.getElementById('textField').value;
+            var age = nameTable[nameFind];
+            nameFind = nameFind.charAt(0).toUpperCase() + nameFind.substr(1);
+            alert(nameFind+ " a "+age+" ans.");
+        }
+
+    </script>
+</body>
+
+<form onsubmit="findName()">
+    First name: <br/>
+    <input type="text" name="lastname" value="bob" id="textField">
+    <input type="submit" value="Submit">
+</form>
+
+</html>

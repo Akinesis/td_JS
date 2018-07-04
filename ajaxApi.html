@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <table id="userList">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+            </tr>
+        </table>
+        <br/>
+        Id :
+        <input id="id" type="text" /><br>
+        Nom :
+        <input id="user" type="text" /><br>
+        Password :
+        <input id="password" type="text" /><br>
+        <button id="addtodo" type="button" onclick="sendUser()">Ajouter</button>
+
+    <script type="text/javascript">
+
+        function afterResultLoad(event) {
+            var xhttp = event.target;
+            var jsonResponse = JSON.parse(xhttp.responseText);
+
+            for(var i = 0; i < jsonResponse.users.length; i++){
+                var elem = jsonResponse.users[i];
+
+                var newTr = document.createElement("tr");
+                var newTdId = document.createElement("td");
+                var newTdName = document.createElement("td");
+                var newTdPass = document.createElement("td");
+
+                var newText = document.createTextNode(elem.name);
+                newTdName.appendChild(newText);
+
+                newText  = document.createTextNode(elem.id);
+                newTdId.appendChild(newText);
+
+                newText  = document.createTextNode(elem.password);
+                newTdPass.appendChild(newText);
+
+                newTr.appendChild(newTdId);
+                newTr.appendChild(newTdName);
+                newTr.appendChild(newTdPass);
+                document.getElementById("userList").appendChild(newTr);
+   
+            }            
+
+            /*document.getElementById("demo").innerHTML = jsonResponse.users[0].name;*/
+        }
+
+        function sendUser(){
+            var jsonData = JSON.stringify({name:"Bob", password:"topSecret"});
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function() { getUsers(); }
+            xhttp.onerror = function(txt) { console.log(txt)}
+
+            xhttp.open("POST", "http://loisirs-web-backend.cleverapps.io/users", true);
+
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.send(jsonData);
+        }
+
+        function getUsers() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = afterResultLoad;
+
+            xhttp.open("GET", "http://loisirs-web-backend.cleverapps.io/db", true);
+
+            xhttp.send();
+        }
+
+        getUsers();
+
+  
+    </script>
+</body>
+
+
+
+</html>
